@@ -1,40 +1,66 @@
-// (1)レンダラの初期化
-var renderer = new THREE.WebGLRenderer({ antialias:true });
-renderer.setSize(500, 500);
-renderer.setClearColorHex(0x000000, 1);
-document.body.appendChild(renderer.domElement);
+var canvasFrame, camera, scene, renderer;
+var object;
 
-// (2)シーンの作成
-var scene = new THREE.Scene();
+init();         // 基本的な設定を初期化
+init_camera();  // カメラを初期化
+init_object();  // オブジェクトを初期化
+animate();      // アニメーションを描画
 
-// (3)カメラの作成
-var camera = new THREE.PerspectiveCamera(15, 500 / 500);
-camera.position = new THREE.Vector3(0, 0, 8);
-camera.lookAt(new THREE.Vector3(0, 0, 0));
-scene.add(camera);
+function init() {
+    // キャンバスフレームDOM要素の取得
+    canvasFrame = document.getElementById('canvas_frame');
+    // レンダラーを作成
+    renderer = new THREE.WebGLRenderer();
+    // canvas要素のサイズを設定
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    // 背景色を設定
+    renderer.setClearColor(0xEEEEEE, 1.0);
+    // body要素にcanvas要素を追加
+    canvasFrame.appendChild( renderer.domElement );
+    // シーンの作成
+    scene = new THREE.Scene();
+    // ウインドウサイズが変更された際のイベントを登録
+    window.addEventListener( 'resize', onWindowResize, false );
+}
 
-// (4)ライトの作成
-var light = new THREE.DirectionalLight(0xcccccc);
-light.position = new THREE.Vector3(0.577, 0.577, 0.577);
-scene.add(light);
+function init_camera(){
+    // カメラを作成
+    camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
+    // カメラの位置を設定
+    camera.position.set(100,100,100);
+    // カメラの向きを設定
+    camera.lookAt( {x: 0, y: 0, z: 0} );
+}
 
-var ambient = new THREE.AmbientLight(0x333333);
-scene.add(ambient);
+function init_object(){
+    // 立方体の作成
+    var geometry = new THREE.BoxGeometry( 50, 50, 50 );
+    // テクスチャの作成
+    var texture = THREE.ImageUtils.loadTexture( 'images/earth.jpg' );
+    texture.anisotropy = renderer.getMaxAnisotropy();
+    // マテリアルオブジェクトを作成
+    var material = new THREE.MeshBasicMaterial( { map: texture } );
+    // オブジェクトを作成
+    object = new THREE.Mesh( geometry, material );
+    // シーンにオブジェクトを追加
+    scene.add( object );
+}
 
-// (5)表示する物体の作成
-var geometry = new THREE.SphereGeometry(1, 32, 16);
-var material = new THREE.MeshPhongMaterial({
-    color: 0xffffff, ambient: 0xffffff,
-    specular: 0xcccccc, shininess:50, metal:true,
-    map: THREE.ImageUtils.loadTexture('images/earth.jpg') });
-    var mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
+function onWindowResize() {
+    // アスペクト比を設定
+    camera.aspect = window.innerWidth / window.innerHeight;
+    // カメラの設定を更新
+    camera.updateProjectionMatrix();
+    // canvas要素のサイズを設定
+    renderer.setSize( window.innerWidth, window.innerHeight );
+}
 
-    // (6)レンダリング
-    var baseTime = +new Date;
-    function render() {
-        requestAnimationFrame(render);
-        mesh.rotation.y = 0.3 * (+new Date - baseTime) / 1000;
-        renderer.render(scene, camera);
-    };
-    render();
+function animate() {
+    // アニメーション
+    requestAnimationFrame( animate );
+    // オブジェクトを回転
+    object.rotation.x += 0.005;
+    object.rotation.y += 0.01;
+    // レンダリング
+    renderer.render( scene, camera );
+}
