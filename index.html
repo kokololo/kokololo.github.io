@@ -89,7 +89,7 @@
 		THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
 
 		var loader = new THREE.OBJMTLLoader();
-		loader.load( 'textures/untitled.obj', 'textures/untitled.mtl', function ( object ) {
+		loader.load( 'textures/untitled01.obj', 'textures/untitled01.mtl', function ( object ) {
 
 			object.position.y = - 80;
 			scene.add( object );
