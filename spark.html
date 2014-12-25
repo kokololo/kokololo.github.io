@@ -30,7 +30,7 @@
 <script type="text/javascript">
 // Inspired from http://wonderfl.net/c/qTwn and mr doob three.js examples
 
-var container, stats;
+var container;
 var camera, scene, renderer, group, particle;
 var mouseX = 0, mouseY = 0;
 
@@ -155,7 +155,6 @@ function animate() {
 	requestAnimationFrame( animate );
 
 	render();
-	stats.update();
 
 }
 
