@@ -12,24 +12,10 @@
 		margin: 0px;
 		overflow: hidden;
 	}
-	#info {
-		color: #fff;
-		position: absolute;
-		top: 10px;
-		width: 100%;
-		text-align: center;
-		z-index: 100;
-		display:block;
-	}
-	#info a, .button { color: #f00; font-weight: bold; text-decoration: underline; cursor: pointer }
 	</style>
 </head>
 
 <body>
-	<div id="info">
-		<a href="http://threejs.org" target="_blank">three.js</a> - OBJMTLLoader test
-	</div>
-
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.min.js"></script>
 
 	<script src="js/loaders/DDSLoader.js"></script>
@@ -133,7 +119,7 @@
 
 	function animate() {
 
-		requestAnimationFrame( animate );
+		//requestAnimationFrame( animate );
 		render();
 
 	}
