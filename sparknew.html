@@ -75,7 +75,7 @@ function init() {
 
 		var material = new THREE.SpriteCanvasMaterial( {  program: SPARKS.CanvasShadersUtils.circles, blending:THREE.AdditiveBlending } );
 
-		material.color.setHSV(h, 1, 0.3); //0.7
+		material.color.setHSL(h, 1, 0.3); //0.7
 		h += 0.001;
 		if (h>1) h-=1;
 
