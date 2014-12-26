@@ -52,10 +52,12 @@ function init() {
 
 
 	var material = new THREE.SpriteMaterial( {
-		map: new THREE.Texture( generateSprite() ),
+		map: new THREE.Texture( circleSprite() ),
+		color: setHSL(h, 1, 0.3),
 		blending: THREE.AdditiveBlending
 	} );
-
+	h += 0.001;
+	if (h>1) h-=1;
 	for ( var i = 0; i < 1000; i++ ) {
 		console.log("i="+i);
 
@@ -65,9 +67,6 @@ function init() {
 
 		scene.add( particle );
 	}
-	material.color.setHSL(h, 1, 0.3); //0.7
-	h += 0.001;
-	if (h>1) h-=1;
 
 
 	renderer = new THREE.CanvasRenderer();
@@ -100,6 +99,14 @@ function onWindowResize() {
 
 	renderer.setSize( window.innerWidth, window.innerHeight );
 
+}
+function circleSprite() {
+	var canvas = document.getElementById('c1');
+	if ( ! canvas || ! canvas.getContext ) { return false; }
+	var ctx = canvas.getContext('2d');
+	ctx.beginPath();
+	ctx.arc(70, 70, 60, 0, Math.PI*2, false);
+	ctx.fill();
 }
 
 function generateSprite() {
