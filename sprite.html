@@ -26,11 +26,12 @@
 
 <script src="js/three/js/libs/stats.min.js"></script>
 <script src="js/three/js/libs/tween.min.js"></script>
+<script src="js/spark/sparks.js"></script>
 
 <script>
 
 var container, stats;
-var camera, scene, renderer, particle;
+var camera, scene, renderer, group, particle;
 var mouseX = 0, mouseY = 0;
 
 var windowHalfX = window.innerWidth / 2;
@@ -48,21 +49,65 @@ function init() {
 	camera.position.z = 1000;
 
 	scene = new THREE.Scene();
+	group = new THREE.Object3D();
+	scene.add( group );
 
-	var material = new THREE.SpriteMaterial( {
-		map: new THREE.Texture( generateSprite() ),
-		blending: THREE.AdditiveBlending
-	} );
 
-	for ( var i = 0; i < 1000; i++ ) {
-		console.log("i="+i);
-		
-		particle = new THREE.Sprite( material );
+	//// EMITTER STUFF
+	var h = 0;
+	var k = 0.7;
 
-		initParticle( particle, i * 10 );
 
-		scene.add( particle );
-	}
+	var callback = function() {
+
+		var material = new THREE.SpriteMaterial( {
+			program: SPARKS.CanvasShadersUtils.circles,
+			blending:THREE.AdditiveBlending
+			} );
+
+		material.color.setHSL(h, 1, 0.3); //0.7
+		h += 0.001;
+		if (h>1) h-=1;
+
+		particle = new THREE.Particle( material );
+
+		particle.scale.x = particle.scale.y = 4;
+		group.add( particle );
+
+		return particle;
+	};
+
+	var onParticleCreated = function(p) {
+		var position = p.position;
+		p.target.position = position;
+	};
+
+	var onParticleDead = function(particle) {
+		particle.target.visible = false; // is this a work around?
+		group.remove(particle.target);
+	};
+
+
+	sparksEmitter = new SPARKS.Emitter(new SPARKS.SteadyCounter(160));
+
+	sparksEmitter.addInitializer(new SPARKS.Position( new SPARKS.PointZone( new THREE.Vector3(0,0,0) ) ) );
+	sparksEmitter.addInitializer(new SPARKS.Lifetime(0,3));
+	sparksEmitter.addInitializer(new SPARKS.Target(null, callback));
+	sparksEmitter.addInitializer(new SPARKS.Velocity(new SPARKS.PointZone(new THREE.Vector3(0,0,100))));
+
+	sparksEmitter.addAction(new SPARKS.Age());
+	sparksEmitter.addAction(new SPARKS.Move());
+
+	sparksEmitter.addCallback("created", onParticleCreated);
+	sparksEmitter.addCallback("dead", onParticleDead);
+
+	sparksEmitter.start();
+
+
+
+
+
+
 
 	renderer = new THREE.CanvasRenderer();
 	renderer.setClearColor( 0x000040 );
