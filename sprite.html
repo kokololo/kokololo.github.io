@@ -39,7 +39,6 @@ var windowHalfY = window.innerHeight / 2;
 
 init();
 animate();
-var sparksEmitter;
 
 function init() {
 
@@ -59,10 +58,9 @@ function init() {
 	var k = 0.7;
 
 
-	var callback = function() {
 
 		var material = new THREE.SpriteMaterial( {
-			program: SPARKS.CanvasShadersUtils.circles,
+			map: new THREE.Texture( generateSprite() ),
 			blending:THREE.AdditiveBlending
 			} );
 
@@ -73,10 +71,8 @@ function init() {
 		particle = new THREE.Particle( material );
 
 		particle.scale.x = particle.scale.y = 4;
-		group.add( particle );
-
-		return particle;
-	};
+	//	group.add( particle );
+		scene.add( particle );
 
 	var onParticleCreated = function(p) {
 		var position = p.position;
@@ -87,22 +83,6 @@ function init() {
 		particle.target.visible = false; // is this a work around?
 		group.remove(particle.target);
 	};
-
-
-	sparksEmitter = new SPARKS.Emitter(new SPARKS.SteadyCounter(160));
-
-	sparksEmitter.addInitializer(new SPARKS.Position( new SPARKS.PointZone( new THREE.Vector3(0,0,0) ) ) );
-	sparksEmitter.addInitializer(new SPARKS.Lifetime(0,3));
-	sparksEmitter.addInitializer(new SPARKS.Target(null, callback));
-	sparksEmitter.addInitializer(new SPARKS.Velocity(new SPARKS.PointZone(new THREE.Vector3(0,0,100))));
-
-	sparksEmitter.addAction(new SPARKS.Age());
-	sparksEmitter.addAction(new SPARKS.Move());
-
-	sparksEmitter.addCallback("created", onParticleCreated);
-	sparksEmitter.addCallback("dead", onParticleDead);
-
-	sparksEmitter.start();
 
 
 
