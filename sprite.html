@@ -149,7 +149,7 @@ function initParticle( particle, delay ) {
 	var delay = delay !== undefined ? delay : 0;
 
 	particle.position.set( 0, 0, 0 )
-	particle.scale.x = particle.scale.y = Math.random() * 32 + 16;
+	particle.scale.x = particle.scale.y = Math.random() * 64 + 32;
 
 	new TWEEN.Tween( particle )
 	.delay( delay )
