@@ -150,7 +150,7 @@ function initParticle( particle, delay ) {
 	var delay = delay !== undefined ? delay : 0;
 
 	particle.position.set( 0, 0, 0 );
-	particle.scale.x = particle.scale.y =Math.abs( Math.sin( count * Math.PI / 180 ) )* 100 + 100;
+	particle.scale.x = particle.scale.y =Math.abs( Math.sin( count * Math.PI / 180 ) )* 100 + 50;
 	count++
 	if (count>180) count-=180;
 
