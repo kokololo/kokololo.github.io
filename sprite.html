@@ -76,7 +76,7 @@ function init() {
 	scene.add( group );
 	*/
 	createSprite();
-	
+
 	renderer = new THREE.CanvasRenderer();
 	renderer.setClearColor( 0x000040 );
 	renderer.setSize( window.innerWidth, window.innerHeight );
@@ -170,7 +170,7 @@ function initParticle( particle, delay ) {
 	new TWEEN.Tween( particle.scale )
 	.delay( delay )
 	.to( { x: 0, y: 0 }, 10000 )
-	.onComplete( deleteSprite )
+	//.onComplete( deleteSprite )
 	.start();
 
 }
