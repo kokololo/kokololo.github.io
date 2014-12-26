@@ -64,7 +64,7 @@ function init() {
 		h += 0.001;
 		if (h>1) h-=1;
 
-		particle = new THREE.Particle( material );
+		particle = new THREE.Sprite( material );
 
 		particle.scale.x = particle.scale.y = 4;
 	//	group.add( particle );
