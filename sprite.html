@@ -46,19 +46,36 @@ function init() {
 
 	scene = new THREE.Scene();
 
-	var material = new THREE.SpriteMaterial( {
-		map: new THREE.Texture( circleSprite() ),
-		blending: THREE.AdditiveBlending
-	} );
+	var PI2 = Math.PI * 2;
+	var program = function ( context ) {
+
+		context.beginPath();
+		context.arc( 0, 0, 0.5, 0, PI2, true );
+		context.fill();
+
+	}
+
+	group = new THREE.Group();
+	scene.add( group );
 
 	for ( var i = 0; i < 1000; i++ ) {
-	//	console.log("i="+i);
+
+		var material = new THREE.SpriteCanvasMaterial( {
+			color: Math.random() * 0x808008 + 0x808080,
+			program: program
+		} );
 
 		particle = new THREE.Sprite( material );
-
+		/*
+		particle.position.x = Math.random() * 2000 - 1000;
+		particle.position.y = Math.random() * 2000 - 1000;
+		particle.position.z = Math.random() * 2000 - 1000;
+		particle.scale.x = particle.scale.y = Math.random() * 20 + 10;
+		group.add( particle );
+		*/
 		initParticle( particle, i * 10 );
-
 		scene.add( particle );
+
 	}
 
 
@@ -93,6 +110,8 @@ function onWindowResize() {
 	renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
+
+/*
 function circleSprite() {
 	var canvas = document.getElementById('c1');
 	if ( ! canvas || ! canvas.getContext ) { return false; }
@@ -123,7 +142,7 @@ function generateSprite() {
 	return canvas;
 
 }
-
+*/
 function initParticle( particle, delay ) {
 
 	var particle = this instanceof THREE.Sprite ? this : particle;
@@ -140,7 +159,7 @@ function initParticle( particle, delay ) {
 
 	new TWEEN.Tween( particle.position )
 	.delay( delay )
-	.to( { x: Math.random() * 4000 - 2000, y: Math.random() * 1000 - 500, z: Math.random() * 4000 - 2000 }, 10000 )
+	.to( { x: 0, y: 0, z: Math.random() * 4000 - 2000 }, 10000 )
 	.start();
 
 	new TWEEN.Tween( particle.scale )
