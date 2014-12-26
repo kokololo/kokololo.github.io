@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>three.js webgl - loaders - OBJ MTL loader</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style>
+	body {
+		font-family: Monospace;
+		background-color: #000;
+		color: #fff;
+		margin: 0px;
+		overflow: hidden;
+	}
+	</style>
+</head>
+
+<body>
+	<script src="js/jquery/jquery-1.11.2.min.js"></script>
+	<script src="js/colorthief/color-thief.js"></script>
+
+	<script>
+	/*
+	$(document).ready(function () {
+
+
+	var colorThief = new ColorThief();
+
+	//var colorRGB = {
+		var color = colorThief.getColor("img/photo1.jpg");
+		//var color = getColor("img/photo1.jpg"[, quality])
+		//returns {r: num, g: num, b: num}
+		//};
+		//console.log(colorRGB);
+});
+*/
+var sourceImage = document.getElementById("myImg");
+var colorThief = new ColorThief();
+colorThief.getPalette(sourceImage, 8);
+
+</script>
+<img src="img/photo1.jpg" width="128" height="128" id="myImg" />
+</body>
+</html>
