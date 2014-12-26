@@ -74,7 +74,7 @@ function init() {
 		particle.scale.x = particle.scale.y = Math.random() * 20 + 10;
 		group.add( particle );
 		*/
-		initParticle( particle, i * 10 );
+		initParticle( particle, i * 30 );
 		scene.add( particle );
 
 	}
@@ -162,12 +162,12 @@ function initParticle( particle, delay ) {
 
 	new TWEEN.Tween( particle.position )
 	.delay( delay )
-	.to( { x: 0, y: 0, z: 4000 }, 10000 )
+	.to( { x: 0, y: 0, z: 2000 }, 10000 )
 	.start();
 
 	new TWEEN.Tween( particle.scale )
 	.delay( delay )
-	.to( { x: 0, y: 0 }, 30000 )
+	.to( { x: 0, y: 0 }, 10000 )
 	.start();
 
 }
