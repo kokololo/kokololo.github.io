@@ -145,9 +145,12 @@ function deleteSprite(){
 	this.group = null;
 }
 
-
+var d = 0;
 function initParticle( particle, delay ) {
 
+	d++
+	console.log(d);
+	
 	var particle = this instanceof THREE.Sprite ? this : particle;
 	var delay = delay !== undefined ? delay : 0;
 
