@@ -26,7 +26,7 @@
 
 <script src="js/three/js/libs/stats.min.js"></script>
 <script src="js/three/js/libs/tween.min.js"></script>
-<script src="js/spark/sparks.js"></script>
+<script src="js/spark/Sparks.js"></script>
 
 <script>
 
@@ -62,7 +62,7 @@ function init() {
 	var callback = function() {
 
 		var material = new THREE.SpriteMaterial( {
-			program: SPARKS.CanvasShadersUtils.circles, 
+			program: SPARKS.CanvasShadersUtils.circles,
 			blending:THREE.AdditiveBlending
 			} );
 
