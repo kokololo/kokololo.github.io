@@ -68,6 +68,8 @@ function init() {
 
 		particle.scale.x = particle.scale.y = 4;
 	//	group.add( particle );
+		initParticle( particle, i * 10 );
+
 		scene.add( particle );
 
 	var onParticleCreated = function(p) {
