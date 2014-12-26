@@ -124,7 +124,7 @@ function createSprite(){
 	group = new THREE.Group();
 	scene.add( group );
 
-	for ( var i = 0; i < 1000; i++ ) {
+	for ( var i = 0; i < 1080; i++ ) {
 
 		var material = new THREE.SpriteCanvasMaterial( {
 			color: Math.random() * 0x808008 + 0x808080,
@@ -140,17 +140,17 @@ function createSprite(){
 	scene.add( group );
 }
 
-
-function deleteSprite(){
-	this.group = null;
-}
-
 var d = 0;
-function initParticle( particle, delay ) {
-
+function deleteSprite(){
 	d++
 	console.log(d);
-	
+	//	this.group = null;
+}
+
+
+function initParticle( particle, delay ) {
+
+
 	var particle = this instanceof THREE.Sprite ? this : particle;
 	var delay = delay !== undefined ? delay : 0;
 
