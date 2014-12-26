@@ -75,10 +75,11 @@ function init() {
 		group.add( particle );
 		*/
 		initParticle( particle, i * 30 );
-		scene.add( particle );
+		//scene.add( particle );
+		group.add( particle );
 
 	}
-
+	scene.add( group );
 
 	renderer = new THREE.CanvasRenderer();
 	renderer.setClearColor( 0x000040 );
