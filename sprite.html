@@ -159,7 +159,7 @@ function initParticle( particle, delay ) {
 	new TWEEN.Tween( particle )
 	.delay( delay )
 	.to( {}, 10000 )
-	.onComplete( createSprite )
+	.onComplete( initParticle )
 	.start();
 
 	new TWEEN.Tween( particle.position )
@@ -170,7 +170,7 @@ function initParticle( particle, delay ) {
 	new TWEEN.Tween( particle.scale )
 	.delay( delay )
 	.to( { x: 0, y: 0 }, 10000 )
-	//.onComplete( deleteSprite )
+	.onComplete( deleteSprite )
 	.start();
 
 }
