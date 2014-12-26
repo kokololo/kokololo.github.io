@@ -99,9 +99,9 @@ function init() {
 	sparksEmitter = new SPARKS.Emitter(new SPARKS.SteadyCounter(160));
 
 	sparksEmitter.addInitializer(new SPARKS.Position( new SPARKS.PointZone( new THREE.Vector3(300,20,10) ) ) );
-	sparksEmitter.addInitializer(new SPARKS.Lifetime(0,3));
+	sparksEmitter.addInitializer(new SPARKS.Lifetime(0,50));
 	sparksEmitter.addInitializer(new SPARKS.Target(null, callback));
-	sparksEmitter.addInitializer(new SPARKS.Velocity(new SPARKS.PointZone(new THREE.Vector3(0,0,100))));
+	sparksEmitter.addInitializer(new SPARKS.Velocity(new SPARKS.PointZone(new THREE.Vector3(0,0,10))));
 
 	sparksEmitter.addAction(new SPARKS.Age());
 	sparksEmitter.addAction(new SPARKS.Move());
